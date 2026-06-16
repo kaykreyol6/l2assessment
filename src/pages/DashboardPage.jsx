@@ -8,7 +8,7 @@ function DashboardPage() {
     avgPerDay: 0
   })
   const [categoryData, setCategoryData] = useState([])
-  const [urgencyData, setUrgencyData] = useState({ High: 0, Medium: 0, Low: 0 })
+  const [urgencyData, setUrgencyData] = useState({ CRITICAL: 0, High: 0, Medium: 0, Low: 0 })
 
   useEffect(() => {
     loadDashboardData()
@@ -40,7 +40,7 @@ function DashboardPage() {
     setCategoryData(Object.entries(categories).map(([name, count]) => ({ name, count })))
 
     // Urgency breakdown
-    const urgency = { High: 0, Medium: 0, Low: 0 }
+    const urgency = { CRITICAL: 0, High: 0, Medium: 0, Low: 0 }
     history.forEach(item => {
       urgency[item.urgency] = (urgency[item.urgency] || 0) + 1
     })
@@ -111,6 +111,13 @@ function DashboardPage() {
               <div className="text-center text-gray-500 py-8">No data yet</div>
             ) : (
               <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-red-700 rounded mr-2"></div>
+                    <span className="text-gray-700">Critical</span>
+                  </div>
+                  <span className="text-2xl font-bold text-red-700">{urgencyData.CRITICAL}</span>
+                </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <div className="w-4 h-4 bg-red-500 rounded mr-2"></div>
